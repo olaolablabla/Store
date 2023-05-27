@@ -1,0 +1,128 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Product {% endblock title %}
+
+{% block main-content %}
+    <div class="container my-5">
+        <div class="row flex justify-content-between">
+            <div class="img2 col-lg-5">
+                <img src="{{ product.product_image.url }}" class="image col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-90 h-75" alt="">
+            </div>
+            <div class="productdetail col-lg-5">
+                <h4 style="font-family: Georgia; font-size: 50px" class="text-uppercase">{{ product.title }}</h4>
+                <h6 class="text-uppercase text-secondary">Overall rating:<span class="text-dark fw-bold"> {{ rating }} <i class="fa fa-star" style="color: orange"></i> </span></h6>
+                {% if product.file %}
+                    <span class="text-uppercase text-secondary">File: </span><span><a href="{{ product.file.url }}">Download</a></span>
+                    <br><br>
+                {% endif %}
+                <h6>KZT {{ product.discounted_price }}/-</h6>
+                <small class="text-decoration-line-through text-muted fs-5"><del>KZT {{ product.selling_price }}/- </small></del>
+                <br><br>
+                <h5 class="text-secondary text-uppercase">Product Features</h5>
+                <ul class="fs-5" style="font-family: Rajdhani;">
+                    <li><small>{{ product.description }}</small></li>
+                </ul>
+                    <form action="/add-to-cart" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ product.id }}">
+                        <button type="submit" class="btn btn-secondary shadow px-5 py-2">Add to Cart</button>
+                    </form>
+            </div>
+        </div>
+
+    <div class="container mt-2">
+        <h5 class="text-uppercase font-weight-bold">Reviews: </h5>
+        <hr class="mt-0 pt-0">
+        <div class="row">
+            <div class="col-sm-5 mt-2">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="review-heading">
+                    <a class="text-capitalize text-secondary text-decoration-none"><i class="far fa-user mr-1"></i> {{ review.user.username }} </a>
+                    <a class="ml-2 text-secondary text-decoration-none"><i class="far fa-clock mr-1"></i> {{ review.created_at }} </a>
+                    <p class="text-dark" style="float:right"> {{ review.rating }} <i class="fa fa-star" style="color: orange"></i></p>
+
+                    </div>
+                    <div class="review-body mt-2">
+                    <p>{{ review.comment }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <h2>Be first!</h2>
+            {% endif %}
+            </div>
+
+                <div class="col-sm-7 mt-2">
+                    <h5 class="text-uppercase">Write Your Review</h5>
+                    <div class="col-sm-6">
+                    <form class="review-form" method="GET" action="/review">
+                            <input type="hidden" name="prod_id" id="prod_id" value="{{ product.id }}"
+                            <div class="form-group">
+                                <textarea class="input" type="text" name="comment" placeholder="Your Review" cols="60" rows="7"></textarea>
+                            </div>
+                        <div class="form-group">
+                            <div class="input rating">
+                                <p class="text-uppercase font-weight-bold">Your Rating: </p>
+                                <div class="rating-wrapper w-100 d-inline">
+                                    <input type="radio" id="star-1" name="rating" value="1">
+                                    <label for="star-1" class="fas fa-star" style="color: orange" ></label>
+
+                                    <input type="radio" id="star-2" name="rating" value="2">
+                                    <label for="star-2" class="fas fa-star" style="color: orange"></label>
+
+                                    <input type="radio" id="star-3" name="rating" value="3" >
+                                    <label for="star-3" class="fas fa-star" style="color: orange"></label>
+
+                                    <input type="radio" id="star-4" name="rating" value="4" >
+                                    <label for="star-4" class="fas fa-star" style="color: orange"></label>
+
+                                    <input type="radio" id="star-5" name="rating" value="5">
+                                    <label for="star-5" class="fas fa-star" style="color: orange"></label>
+                                </div>
+                            </div>
+
+                        <button class="btn btn-dark btn-nd mt-2" type="submit">Post</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+         </div>
+    </div>
+    </div>
+{% endblock main-content %}
+
+<style>
+    .rating-wrapper{
+        display: inline-block;
+        font-size: 0;
+        position: relative;
+        padding: 0 50px 60px;
+        color: gray;
+    }
+    label{
+        float: right;
+        padding: 0;
+        font-size: 50px;
+        cursor: pointer;;
+    }
+
+    label::before{
+        content: "\2606";
+        transition: 0.2s;
+        padding-bottom: 8px;
+        display: inline-block;
+    }
+
+    span{
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    input:checked ~ label:before{
+        color: orange;
+    }
+
+</style>

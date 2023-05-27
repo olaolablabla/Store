@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Customer Registration {% endblock title %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row my-5 w-100">
+        <div class="col-sm-5 offset-sm-4">
+        <h3>Customer Registartion</h3>
+        <hr>
+
+        <form action="" method="post" class="shadow p-5">
+            {% csrf_token %}
+            {% for fm in form %}
+                {{ fm.label_tag }}
+                {{ fm }}
+                <small class="text-danger">{{ fm.errors|striptags }}</small>
+                <br>
+            {% endfor %}
+            <input type="submit" value="Submit" class="btn btn-secondary">
+            <br>
+
+            <div class="text-center text-secondary fw-bold">
+                <small>Already exists? <a href="{% url 'login' %}" class="text-danger">Login Now </small>
+            </div>
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for ms in messages %}
+                    <div class="alert alert-{{ ms.tags }} text-center" role="alert">
+                        {{ ms }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </form>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

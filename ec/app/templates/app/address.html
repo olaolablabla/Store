@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{%  block title %}Address{% endblock title %}
+
+{% block main-content %}
+    <div class="container my-5">
+        <div class="row">
+            <h3>WELCOME <span class="text-uppercase">{{ request.user }}</span></h3>
+
+            <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    <li class="d-grid"><a href="{% url 'profile' %}" class="btn">PROFILE</a> </li>
+                    <li class="d-grid"><a href="{% url 'address'%}" class="btn btn-secondary">ADDRESS</a> </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-8 offset-sm-1">
+                <div class="row">
+{#                {% csrf_token %}#}
+                    {%  for ad in add %}
+                        <div class="col-sm-4">
+                        <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>ADDRESS: {{ forloop.counter }}</h5>
+                            <p>NAME: {{ ad.name }}</p>
+                            <p>LOCALITY: {{ ad.locality }}</p>
+                            <p>MOBILE: {{ ad.mobile }}</p>
+                            <p>CITY: {{ ad.city }}</p>
+                            <p>STATE: {{ ad.state }}</p>
+                            <p>ZIPCODE: {{ ad.zipcode }}</p>
+                            <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %} "
+                                                       type="button" class="btn btn-secondary">Update</a> </p>
+                        </div>
+                        </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock main-content %}

@@ -1,0 +1,51 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Orders {% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+<div class="row">
+    <h3>WELCOME <span class="text-uppercase">{{ request.user }}</span></h3>
+    <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-secondary">ORDERS</a> </li>
+                </ul>
+            </div>
+
+    <div class="col-sm-8 offset-sm-1">
+        {% for op in order_placed %}
+            <div class="row">
+                <div class="col-sm-2">
+                    <img src="{{ op.product.product_image.url }}" class="img-fluid" height="100" width="100">
+                </div>
+            <div class="col-sm-7">
+                <p class="text-secondary">PRODUCT:<span class="text-dark text-uppercase "> {{ op.product.title }}</span></p>
+                <p class="text-secondary">QUANTITY:<span class="text-dark text-uppercase "> {{ op.quantity }} </span></p>
+                <p class="text-secondary">PRICE:<span class="text-dark text-uppercase "> {{ op.total_cost }}</span></p>
+            </div>
+            <div class="col-sm-3">
+                {%  if op.status == 'Pending' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondary fw-bold"> {{ op.status }} </span></p>
+                {% endif %}
+                {%  if op.status == 'Accepted' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondary fw-bold text-dark"> {{ op.status }} </span></p>
+                {% endif %}
+                {%  if op.status == 'Packed' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondary fw-bold text-info"> {{ op.status }} </span></p>
+                {% endif %}
+                {%  if op.status == 'On The Way' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondary fw-bold text-warning"> {{ op.status }} </span></p>
+                {% endif %}
+                {%  if op.status == 'Delivered' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondary fw-bold text-success"> {{ op.status }} </span></p>
+                {% endif %}
+                {%  if op.status == 'Cancel' %}
+                    <p class="text-secondary">Order Status:<span class="text-secondaryfw-bold text-danger fw-bold"> {{ op.status }} </span></p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock main-content %}

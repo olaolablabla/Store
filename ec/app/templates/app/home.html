@@ -1,0 +1,120 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock title %}
+
+{% block banner %}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <video class="slide-video"  playsinline autoplay muted loop>
+        <source src="https://cdn.shopify.com/videos/c/o/v/00da7754c3dd4a9588ad6504e7a4fe90.mp4">
+    </video>
+  </div>
+</div>
+{% endblock banner %}
+
+{% block information %}
+<div class="container">
+    <div class="row bg-secondary text-center p-5 text-white border-bottom shadow w-100">
+        <h1>PRODUCTION</h1>
+        <small class="fs-5">Every A4 Furniture Living product is carefully handcrafted by traditional German companies. This is how innovative design meets proud craftsmanship, years of experience and the highest quality standards. At the same time, we ensure greater transparency and less environmental impact on short transport and communication routes.</small>
+    </div>
+</div>
+{% endblock information %}
+
+{% block main-content %}
+    <div class="container my-4">
+        <h2 class="text-center text-secondary"> OUR BEST PRODUCTS </h2>
+        <br><br>
+        <div class="row container ">
+            <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'sofa' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/sofa1.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">SOFA</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'table' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/table1.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">TABLE</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp mb-5" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'chair' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/chair1.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">CHAIR</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'desk' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/desk1jpg.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">DESK</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp mb-5" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'cup' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/cup1.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">CUPBOARD</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'storage' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/storage1jpg.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">STORAGE</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp " data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'bed' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/bed1jpg.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-2">BED</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+             <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+{#                <div class="goodnesssec buttermilk smbg">#}
+                    <a href="{% url 'category' 'book' %}">
+                        <div class="goodnesssecount text-center">
+                            <img src="{% static 'app/images/products/book1.jpg' %}" class="img-responsive" alt="" width="250" height="150">
+                            <p class="mlkpro my-4">BOOKCASES</p>
+                        </div>
+                    </a>
+{#                </div>#}
+            </div>
+
+        </div>
+    </div>
+    <br/><br/>
+{% endblock main-content%}

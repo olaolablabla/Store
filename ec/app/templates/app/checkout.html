@@ -1,0 +1,119 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+
+{% block main-content %}
+<div class="container">
+    {% if messages %}
+        {% for ms in messages %}
+            <div class="alert alert-danger" role="alert">
+            {{ ms }}
+            </div>
+        {% endfor %}
+    {% endif %}
+<div class="row mt-5">
+    <div class="col-sm-6">
+        <h4 class="text-dark">ORDER SUMMARY</h4>
+        <hr>
+        {% for item in cart_items %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5>Product: {{ item.product.title }}</h5>
+                    <p class="text-secondary">Quantity: {{ item.quantity }}</p>
+                    <p class="fw-bold">Price: {{ item.product.discounted_price }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <p class="fw-bold">Total Cost + KZT 4000 = {{ totalamount }}</p>
+        <small>Order placement: The customer selects the desired product(s) and provides shipping information, including the delivery address.
+
+Order processing: The website processes the order and generates a shipping label.
+
+Package pickup: A shipping carrier, such as USPS, FedEx, or UPS, picks up the package from the website's fulfillment center.
+
+Package transit: The shipping carrier transports the package to the destination address, typically through a combination of ground and air transportation.
+
+Delivery attempt: The shipping carrier attempts to deliver the package to the recipient's address.
+
+Delivery confirmation: Once the package is delivered, the shipping carrier updates the tracking information with the delivery confirmation.</small>
+        </div>
+            <div class="col-sm-4 offset-sm-1">
+                <h4 class="text-uppercase text-dark">Select Shipping Address:</h4>
+                <hr>
+                <form method="POST" id="myform">
+                    {% csrf_token %}
+                    {% for ad in add %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>{{ ad.name }}</h5>
+                                <p>Mobile: {{ ad.mobile }}</p>
+                                <p>{{ ad.locality }} {{ ad.city }} {{ ad.state }} - {{ ad.zipcode }}</p>
+                            </div>
+                        </div>
+                        <div class="form-check mt-2 mb-5">
+                            <input class="form-check-input" type="radio" name="cust_id"
+                                   id="custadd{{ forloop.counter }}" value="{{ ad.id }}">
+                            <label class="form-check-label fw-bold" for="custadd{{ forloop.counter }}">
+                                Address: {{ forloop.counter }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <div class="form-check m-0">
+                        <label for="totalamount" class="form-label">Total Amount: <span class="fw-bold">KZT {{ totalamount }} </span></label>
+{#                        <input type="number" class="form-control" name="totalamount" value="{{ totalamount }}" readonly>#}
+                    </div>
+                    <div class="text-end">
+{#                        <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>#}
+                        <button id="rzp-button1" type="submit" class="btn btn-secondary mt-3 px-5 fw-bold">Payment</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock main-content %}
+
+
+{% block payment %}
+<script>
+    var options = {
+        "key": "rzp_test_QKw8jPmdFvrJF4", // Enter the Key ID generated from the Dashboard
+        "amount": "{{ razoramount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "KZT",
+        "name": "A4 FURNITURE",
+        "description": "A4 Furniture products",
+        "order_id": "{{ order_id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            console.log("success")
+            var form = document.getElementById("myform");
+                {#var order_id = response.razorpay_order_id;#}
+                {#var payment_id = response.razorpay_payment_id;#}
+                {#var cust_id = form.elements["cust_id"].value;#}
+                {##}
+                {#alert(order_id),#}
+                {#alert(payment_id),#}
+                {#alert(cust_id)#}
+
+            window.location.href = `http://127.0.0.1:8000/paymentdone?order_id=${response.razorpay_order_id}&payment_id=${response.razorpay_payment_id}&cust_id=${form.elements["cust_id"].value}`;
+
+            {#window.location.href = 'http://127.0.0.1:8000/paymentdone?order_id=${response.razorpay_order_id}&payment_id=${response.razorpay_payment_id}&cust_id=${form.elements["cust_id"].value}'#}
+            {#window.location.href = 'http://127.0.0.1:8000/paymentdone?order_id=${order_id}&payment_id=${payment_id}&cust_id=${cust_id}';#}
+        },
+        "theme": {
+            "color": "#4000aa"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+            alert(response.error.description);
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        console.log("button click");
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+
+{% endblock payment %}
